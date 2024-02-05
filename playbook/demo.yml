@@ -9,4 +9,7 @@
 
     - name: Infinite Loop
       command: sleep 5
-      loop: "infinite"
+      loop: "{{ range(1, 4294967295) }}"
+      loop_control:
+        pause: 5
+      when: "'infinite' in ansible_loop_var"
