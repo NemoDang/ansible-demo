@@ -1,0 +1,26 @@
+---
+- name: Continuous Running Ansible Playbook with Website Ping
+  hosts: localhost
+  gather_facts: false
+  vars:
+    website_url: "https://www.google.com"
+    interval_seconds: 300  # Adjust the interval based on your needs
+
+  tasks:
+    - name: Display Message
+      debug:
+        msg: "This playbook is running continuously and pinging {{ website_url }}."
+
+    - name: Ping Website
+      uri:
+        url: "{{ website_url }}"
+        method: GET
+        return_content: yes
+      async: "{{ interval_seconds }}"
+      poll: 0
+      register: website_ping_result
+      until: false  # To ensure the task runs indefinitely
+
+    - name: Debug Website Ping Output
+      debug:
+        var: website_ping_result.json
