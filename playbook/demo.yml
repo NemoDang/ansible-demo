@@ -1,14 +1,13 @@
 ---
-- name: Continuous Running Ansible Playbook with Website Ping
+- name: Continuous Display Message Ansible Playbook
   hosts: localhost
   gather_facts: false
-  vars:
-    interval_seconds: 300  # Adjust the interval based on your needs
-
   tasks:
-    - name: Display Message
+    - name: Display Message Infinitely
       debug:
-        msg: "This playbook is running continuously."
-      async: "{{ interval_seconds }}"
-      poll: 0
-      until: false  # To ensure the task runs indefinitely
+        msg: "This message will be displayed continuously."
+
+    - name: Infinite Loop
+      command: sleep 5
+      loop: "infinite"
+      when: "'infinite' in ansible_loop_var"
