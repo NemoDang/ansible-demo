@@ -10,4 +10,3 @@
     - name: Infinite Loop
       command: sleep 5
       loop: "infinite"
-      when: "'infinite' in ansible_loop_var"
